@@ -41,6 +41,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 uint64_t softfloat_shiftRightJam64( uint64_t a, uint_fast32_t dist )
 {
+   if (dist == 0) {
+      // Otherwise, this function will incorrectly set a sticky bit
+      return a;
+   }
 
     return
         (dist < 63) ? a>>dist | ((uint64_t) (a<<(-dist & 63)) != 0) : (a != 0);

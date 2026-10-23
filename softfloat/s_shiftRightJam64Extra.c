@@ -46,7 +46,10 @@ struct uint64_extra
 {
     struct uint64_extra z;
 
-    if ( dist < 64 ) {
+    if (dist == 0) {
+        z.v = a;
+        z.extra = 0;
+    } else if ( dist < 64 ) {
         z.v = a>>dist;
         z.extra = a<<(-dist & 63);
     } else {

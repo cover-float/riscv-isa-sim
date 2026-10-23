@@ -48,7 +48,11 @@ struct uint128_extra
     struct uint128_extra z;
 
     u8NegDist = -dist;
-    if ( dist < 64 ) {
+    if (dist == 0) {
+        z.v.v64 = a64;
+        z.v.v0 = a0;
+        z.extra = 0;
+    } else if ( dist < 64 ) {
         z.v.v64 = a64>>dist;
         z.v.v0 = a64<<(u8NegDist & 63) | a0>>dist;
         z.extra = a0<<(u8NegDist & 63);

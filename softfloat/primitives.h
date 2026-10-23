@@ -74,6 +74,10 @@ uint64_t softfloat_shortShiftRightJam64( uint64_t a, uint_fast8_t dist );
 #if defined INLINE_LEVEL && (2 <= INLINE_LEVEL)
 INLINE uint32_t softfloat_shiftRightJam32( uint32_t a, uint_fast16_t dist )
 {
+    if (dist == 0) {
+        // Otherwise, this function incorrectly sets sticky
+        return a;
+    }
     return
         (dist < 31) ? a>>dist | ((uint32_t) (a<<(-dist & 31)) != 0) : (a != 0);
 }
@@ -95,6 +99,11 @@ uint32_t softfloat_shiftRightJam32( uint32_t a, uint_fast16_t dist );
 #if defined INLINE_LEVEL && (3 <= INLINE_LEVEL)
 INLINE uint64_t softfloat_shiftRightJam64( uint64_t a, uint_fast32_t dist )
 {
+    if (dist == 0) {
+        // Otherwise, this function incorrectly sets sticky
+        return a;
+    }
+
     return
         (dist < 63) ? a>>dist | ((uint64_t) (a<<(-dist & 63)) != 0) : (a != 0);
 }
@@ -406,7 +415,10 @@ struct uint64_extra
      uint64_t a, uint64_t extra, uint_fast32_t dist )
 {
     struct uint64_extra z;
-    if ( dist < 64 ) {
+    if (dist == 0) {
+        z.v = a;
+        z.extra = 0;
+    } else if ( dist < 64 ) {
         z.v = a>>dist;
         z.extra = a<<(-dist & 63);
     } else {

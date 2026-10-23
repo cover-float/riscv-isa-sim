@@ -46,7 +46,10 @@ struct uint128
     uint_fast8_t u8NegDist;
     struct uint128 z;
 
-    if ( dist < 64 ) {
+    if (dist == 0) {
+        z.v64 = a64;
+        z.v0 = a0;
+    } else if ( dist < 64 ) {
         u8NegDist = -dist;
         z.v64 = a64>>dist;
         z.v0 =
