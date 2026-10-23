@@ -65,7 +65,7 @@ float16_t ui32_to_f16( uint32_t a )
         sig64 = 
             (shiftDist64 < 0) 
                 ? softfloat_shiftRightJam64(a, -shiftDist64)
-                : (uint_fast32_t) a << shiftDist64;
+                : (uint_fast64_t) a << shiftDist64;
 
         return softfloat_roundPackToF16( 0, 0x1C - shiftDist, sig, sig64 );
     }

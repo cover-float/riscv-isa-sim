@@ -55,7 +55,7 @@ bfloat16_t
     softfloat_intermediateResult.sign     = sign;
     softfloat_intermediateResult.exp      = exp + 1;
     if (sig32 != 0) {
-        softfloat_intermediateResult.sig64    = sig32 << 32;
+        softfloat_intermediateResult.sig64    = (uint_fast64_t)sig32 << 32;
         softfloat_intermediateResult.sig0     = 0;
         softfloat_intermediateResult.sigExtra64 = 0;
         softfloat_intermediateResult.sigExtra0 = 0;
