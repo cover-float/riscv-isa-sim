@@ -35,6 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =============================================================================*/
 
 #include <stdint.h>
+#include <string.h>
 #include "platform.h"
 #include "primitiveTypes.h"
 
@@ -77,6 +78,14 @@ void
     uint_fast32_t wordDist;
     uint64_t *ptr;
     uint_fast8_t i, innerDist;
+
+    if (dist == 0) {
+        // This function is not safe for dist = 0
+        if (zPtr != aPtr) {
+            memcpy(zPtr, aPtr, 4 * sizeof *zPtr);
+        }
+        return;
+    }
 
     wordJam = 0;
     wordDist = dist>>6;

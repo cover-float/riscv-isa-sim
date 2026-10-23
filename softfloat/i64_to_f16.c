@@ -71,7 +71,7 @@ float16_t i64_to_f16( int64_t a )
         sig64 =
             (shiftDist64 < 0)
                 ? softfloat_shortShiftRightJam64( absA, -shiftDist64 )
-                : (uint_fast16_t) absA<<shiftDist64;
+                : (uint_fast64_t) absA<<shiftDist64;
         softfloat_intermediateResult.sig64 = sig64;
         softfloat_intermediateResult.sig0 = 0;
         softfloat_intermediateResult.sigExtra64 = 0;
