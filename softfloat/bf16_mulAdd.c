@@ -86,7 +86,7 @@ bfloat16_t bf16_mulAdd( bfloat16_t a, bfloat16_t b, bfloat16_t c )
     int16_t unshifted_prod_exp = expA + expB;
     int16_t prod_exp = expF64UI(prod.v) - /* F64_EXP_BIAS */ 1023;
 
-    softfloat_intermediateResult.fmaPreAddition[indexWord(4, 0)] = fracF64UI(prod.v) | (1ul << 52);
+    softfloat_intermediateResult.fmaPreAddition[indexWord(4, 0)] = fracF64UI(prod.v) | (UINT64_C(1) << 52);
     if (unshifted_prod_exp != prod_exp) {
         softfloat_intermediateResult.fmaPreAddition[indexWord(4, 0)] <<= 1;
     }
